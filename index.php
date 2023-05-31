@@ -54,12 +54,24 @@
         }
     }
 
-    $movie1 = new Movie("The exorcist", "Horror", "William Friedkin");
-    $movie1->set_poster_url("https://m.media-amazon.com/images/I/71KnXY8ZfiL._AC_UF894,1000_QL80_.jpg");
-    $movie2 = new Movie("The King's Speech", "Historical Drama", "Tom Hooper");
-    $movie2->set_poster_url("https://m.media-amazon.com/images/I/51XZNIFP+1L._AC_UF894,1000_QL80_.jpg");
-    $movie3 = new Movie("Body of lies", "Spy Action Thriller", "Ridley Scott");
-    $movie3->set_poster_url("https://m.media-amazon.com/images/M/MV5BMTgzOTY3MTM0OV5BMl5BanBnXkFtZTcwNjc5MTI5MQ@@._V1_.jpg");
+    $movies = [
+        new Movie("The exorcist", "Horror", "William Friedkin"),
+        new Movie("The King's Speech", "Historical Drama", "Tom Hooper"),
+        new Movie("Body of lies", "Spy Action Thriller", "Ridley Scott")
+    ];
+    // $movie1 = new Movie("The exorcist", "Horror", "William Friedkin");
+    $movies[0]->set_poster_url("https://m.media-amazon.com/images/I/71KnXY8ZfiL._AC_UF894,1000_QL80_.jpg");
+    // $movie2 = new Movie("The King's Speech", "Historical Drama", "Tom Hooper");
+    $movies[1]->set_poster_url("https://m.media-amazon.com/images/I/51XZNIFP+1L._AC_UF894,1000_QL80_.jpg");
+    // $movie3 = new Movie("Body of lies", "Spy Action Thriller", "Ridley Scott");
+    $movies[2]->set_poster_url("https://m.media-amazon.com/images/M/MV5BMTgzOTY3MTM0OV5BMl5BanBnXkFtZTcwNjc5MTI5MQ@@._V1_.jpg");
+
+    // var_dump($movie1);
+    // echo "<br><br>";
+    // var_dump($movie2);
+    // echo "<br><br>";
+    // var_dump($movie3);
+    // echo "<br><br>";
 ?>
 
 <!DOCTYPE html>
@@ -68,9 +80,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link a Bootstrap style -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>My Movies (OOP)</title>
+    <style>
+        .card > img
+        {
+            width: 100%;
+            aspect-ratio: 5/8;
+        }
+    </style>
 </head>
 <body>
-    
+    <header>
+        <h1 class="text-center text-black-50">My favorite movies</h1>
+    </header>
+    <main>
+        <div class="row justify-content-between w-75 p-5 mx-auto border border-5 rounded-5 bg-info">
+            <?php 
+                foreach($movies as $movie):
+            ?>
+                    <div class="col-3 py-2 card">
+                        <img src="<?php echo $movie->get_poster_url() ?>" class="card-img-top" alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><?php echo $movie->get_title() ?></h5>
+                            <span class="card-text py-2 d-block"><?php echo $movie->get_genre() ?></span>
+                            <a href="#" class="btn btn-primary"><?php echo $movie->get_director() ?></a>
+                        </div>
+                    </div>
+            <?php
+                endforeach;
+            ?>
+        </div>
+    </main>
 </body>
 </html>
