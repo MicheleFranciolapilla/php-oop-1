@@ -1,0 +1,71 @@
+.card
+{
+    border: 3px solid transparent;
+}
+
+.card:hover
+{
+    cursor: pointer;
+    border-color: blue;
+}
+
+.card:hover h5
+{
+    color: blue;
+}
+
+.card > img
+{
+    width: 100%;
+    aspect-ratio: 5/8;
+}
+
+.cast_link
+{
+    display: block;
+}
+
+.director_area,
+.cast_area
+{
+    position: relative;
+    cursor: pointer;
+}
+
+.director_area > div,
+.cast_area > div
+{
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.cast_area > div
+{
+    left: 5%;
+    width: 100%;
+}
+
+.cast_area .img_box
+{
+    width: 100%;
+    text-align: center;
+}
+
+.cast_area .img_box > img
+{
+    width: 95%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.director_area:hover > div,
+.cast_area:hover > div
+{
+    display: flex;
+    z-index: 999;
+}

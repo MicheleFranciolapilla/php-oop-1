@@ -3,7 +3,6 @@
     require_once __DIR__ . './php_modules/db.php';
     require_once __DIR__ . './php_modules/functions.php';
 
-    $clicked_index = 1;
     $clicked_movie = null;
 
 ?>
@@ -16,71 +15,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Link a Bootstrap style -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Link al foglio di stile -->
+    <link rel="stylesheet" href="./style.css">
     <title>My Movies (OOP)</title>
-    <style>
-        .card > img
-        {
-            width: 100%;
-            aspect-ratio: 5/8;
-        }
-
-        .cast_link
-        {
-            display: block;
-        }
-
-        .director_area,
-        .cast_area
-        {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .director_area > div,
-        .cast_area > div
-        {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            align-items: center;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-
-        .cast_area > div
-        {
-            left: 5%;
-            width: 100%;
-        }
-
-        .cast_area .img_box
-        {
-            width: 100%;
-            text-align: center;
-        }
-
-        .cast_area .img_box > img
-        {
-            width: 95%;
-            aspect-ratio: 1;
-            object-fit: cover;
-        }
-
-        .director_area:hover > div,
-        .cast_area:hover > div
-        {
-            display: flex;
-            z-index: 999;
-        }
-    </style>
 </head>
 <body>
     <header>
         <h1 class="text-center text-black-50">My favorite movies</h1>
     </header>
     <main>
-        <div class="row justify-content-between w-75 p-1 mx-auto border border-3 rounded-5 bg-info">
+        <div class="row justify-content-evenly w-75 p-1 mx-auto border border-3 rounded-5 bg-info">
             <?php 
                 foreach($movies as $index => $movie):
             ?>
@@ -120,7 +64,7 @@
                                             echo 
                                                 '<li>
                                                     <div class="cast_area text-secondary mt-2">
-                                                        <span>' 
+                                                        <span class="character_name">' 
                                                             . $character->get_data(0) . " " . $character->get_data(1) . 
                                                         '</span>
                                                         <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
