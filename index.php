@@ -46,22 +46,7 @@
                                 "role" => "Director",
                                 "nationality" => "British"
                             ]);
-
-
-// var_dump($directors_data);
-                
-    // $person_data = ["name" => "Leonardo Wilhelm", "surname" => "DiCaprio", "is_male" => true, "nationality" => "U.S.A.", "role" => "Main Character"];
-    // $person1 = new Movie_Person($person_data);
-
-    // var_dump($person1);
-    // echo "<br><br>";
-    // $person1->set_data(0,"Leonardo e basta");
-    // var_dump($person1);
-    // echo "<br><br>";
-    // $person1->set_data(3,"Italian blood");
-    // var_dump($person1);
-    // echo "<br><br>";
-
+   
     class Movie 
     {
         public $title;
@@ -129,18 +114,110 @@
         }
     }
 
+    $cast_collection = array();
+    array_push($cast_collection,[
+                                    new Movie_Person([   
+                                        "name" => "Max",
+                                        "surname" => "von Sydow",
+                                        "is_male" => true,
+                                        "role" => "Main Character",
+                                        "nationality" => "Swedish"
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Linda",
+                                        "surname" => "Blair",
+                                        "is_male" => false,
+                                        "role" => "Main Character",
+                                        "nationality" => "U.S.A."
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Jason",
+                                        "surname" => "Miller",
+                                        "is_male" => true,
+                                        "role" => "Main Character",
+                                        "nationality" => "U.S.A."
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Ellen",
+                                        "surname" => "Burstyn",
+                                        "is_male" => false,
+                                        "role" => "Side Character",
+                                        "nationality" => "U.S.A."
+                                    ]),
+                                ]);
 
-
+    array_push($cast_collection,[
+                                    new Movie_Person([   
+                                        "name" => "Colin",
+                                        "surname" => "Firth",
+                                        "is_male" => true,
+                                        "role" => "Main Character",
+                                        "nationality" => "British"
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Geoffrey",
+                                        "surname" => "Rush",
+                                        "is_male" => true,
+                                        "role" => "Main Character",
+                                        "nationality" => "Australian"
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Helena",
+                                        "surname" => "Bonham Carter",
+                                        "is_male" => false,
+                                        "role" => "Side Character",
+                                        "nationality" => "British"
+                                    ]),
+                                ]);
+    array_push($cast_collection,[
+                                    new Movie_Person([   
+                                        "name" => "Leonardo",
+                                        "surname" => "DiCaprio",
+                                        "is_male" => true,
+                                        "role" => "Main Character",
+                                        "nationality" => "U.S.A."
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Russell",
+                                        "surname" => "Crowe",
+                                        "is_male" => true,
+                                        "role" => "Main Character",
+                                        "nationality" => "New Zealander"
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Mark",
+                                        "surname" => "Strong",
+                                        "is_male" => true,
+                                        "role" => "Side Character",
+                                        "nationality" => "British"
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Golshifteh",
+                                        "surname" => "Farahani",
+                                        "is_male" => false,
+                                        "role" => "Side Character",
+                                        "nationality" => "Iranian"
+                                    ]),
+                                    new Movie_Person([   
+                                        "name" => "Oscar",
+                                        "surname" => "Isaac",
+                                        "is_male" => true,
+                                        "role" => "Side Character",
+                                        "nationality" => "Guatemalan"
+                                    ]),
+                                ]);
     $movies = [
-        new Movie("The exorcist", "Horror", new Movie_Person($directors_data[0]), "io"),
-        new Movie("The King's Speech", "Historical Drama", new Movie_Person($directors_data[1]), "tu"),
-        new Movie("Body of lies", "Spy Action Thriller", new Movie_Person($directors_data[2]), "lei")
+        new Movie("The exorcist", "Horror", new Movie_Person($directors_data[0]), $cast_collection[0]),
+        new Movie("The King's Speech", "Historical Drama", new Movie_Person($directors_data[1]), $cast_collection[1]),
+        new Movie("Body of lies", "Spy Action Thriller", new Movie_Person($directors_data[2]), $cast_collection[2])
     ];
     $movies[0]->set_poster_url("https://m.media-amazon.com/images/I/71KnXY8ZfiL._AC_UF894,1000_QL80_.jpg");
     $movies[1]->set_poster_url("https://m.media-amazon.com/images/I/51XZNIFP+1L._AC_UF894,1000_QL80_.jpg");
     $movies[2]->set_poster_url("https://m.media-amazon.com/images/M/MV5BMTgzOTY3MTM0OV5BMl5BanBnXkFtZTcwNjc5MTI5MQ@@._V1_.jpg");
 
     // var_dump($movies[2]);
+
+    $clicked_cast = null;
 ?>
 
 <!DOCTYPE html>
@@ -157,6 +234,11 @@
         {
             width: 100%;
             aspect-ratio: 5/8;
+        }
+
+        .cast_link
+        {
+            display: block;
         }
 
         .director_area
@@ -185,18 +267,20 @@
         <h1 class="text-center text-black-50">My favorite movies</h1>
     </header>
     <main>
-        <div class="row justify-content-between w-75 p-2 mx-auto border border-5 rounded-5 bg-info">
+        <div class="row justify-content-between w-75 p-1 mx-auto border border-3 rounded-5 bg-info">
             <?php 
                 foreach($movies as $movie):
             ?>
-                    <div class="col-3 py-2 card">
+                    <div class="col-3 py-1 card">
                         <img src="<?php echo $movie->get_poster_url() ?>" class="card-img-top" alt="...">
                         <div class="card-body text-center">
                             <h5 class="card-title"><?php echo $movie->get_title() ?></h5>
                             <span class="card-text py-2"><?php echo $movie->get_genre() ?></span>
-                            <div class="director_area text-primary">
+                            <a class="btn btn-primary d-block" data-bs-toggle="offcanvas" href="#offcanvas_cast" role="button" aria-controls="offcanvas_cast" 
+                             onclick="<?php $clicked_cast = $movie->get_cast() ?>">Cast</a>
+                            <div class="director_area text-secondary mt-2">
                                 <span><?php echo $movie->get_director()->get_data(0) . " " . $movie->get_director()->get_data(1) ?></span>
-                                <div class="position-absolute top-0 start-0 text-primary border border-3 rounded-3 bg-light">
+                                <div class="position-absolute top-0 start-0 border border-1 border-dark rounded-3 bg-light">
                                     <span><?php echo $movie->get_director()->get_data(0) . " " . $movie->get_director()->get_data(1) ?></span>
                                     <span><?php echo $gender_str($movie->get_director()->get_data(2)) ?></span>
                                     <span><?php echo strtoupper($movie->get_director()->get_key(4)) . " : " . $movie->get_director()->get_data(4) ?></span>
@@ -208,6 +292,7 @@
             <?php
                 endforeach;
             ?>
+
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
