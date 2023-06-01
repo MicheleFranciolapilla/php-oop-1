@@ -50,8 +50,21 @@
 
         .cast_area > div
         {
-            left: 10%;
-            width: 90%;
+            left: 5%;
+            width: 100%;
+        }
+
+        .cast_area .img_box
+        {
+            width: 100%;
+            text-align: center;
+        }
+
+        .cast_area .img_box > img
+        {
+            width: 95%;
+            aspect-ratio: 1;
+            object-fit: cover;
         }
 
         .director_area:hover > div,
@@ -113,6 +126,9 @@
                                                         <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
                                                             <span>' . $character->get_data(0) . " " . $character->get_data(1) . '</span>
                                                             <span>' . $gender_str($character->get_data(2)) . '</span>
+                                                            <div class="img_box">
+                                                                <img src="' . $character->get_data(5) . '">
+                                                            </div>
                                                             <span>' . strtoupper($character->get_key(4)) . " : " . $character->get_data(4) . '</span>
                                                             <span>' . strtoupper($character->get_key(3)) . " : " . $character->get_data(3) . '</span>
                                                         </div>
