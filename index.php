@@ -3,8 +3,9 @@
     require_once __DIR__ . './php_modules/db.php';
     require_once __DIR__ . './php_modules/functions.php';
 
-    $clicked_index = 0;
+    $clicked_index = 1;
     $clicked_movie = null;
+
 ?>
 
 <!DOCTYPE html>
@@ -75,8 +76,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title"><?php echo $movie->get_title() ?></h5>
                             <span class="card-text py-2"><?php echo $movie->get_genre() ?></span>
-                            <a class="btn btn-primary d-block" data-bs-toggle="offcanvas" href="#offcanvas_cast" role="button" aria-controls="offcanvas_cast" 
-                             onclick="<?php $clicked_index = $index; ?>">Cast</a>
+                            <a class="btn btn-primary d-block" data-bs-toggle="offcanvas" href="<?php echo '#offcanvas_cast' . strval($index) ?>" role="button" aria-controls="offcanvas_cast">Cast</a>
                             <div class="director_area text-secondary mt-2">
                                 <span><?php echo $movie->get_director()->get_data(0) . " " . $movie->get_director()->get_data(1) ?></span>
                                 <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
@@ -88,46 +88,47 @@
                             </div>
                         </div>
                     </div>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="<?php echo 'offcanvas_cast' . strval($index) ?>" aria-labelledby="offcanvas_castLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvas_castLabel">
+                                <?php 
+                                    $clicked_movie = $movies[$index];
+                                    echo $clicked_movie->get_title();
+                                ?>
+                            </h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div>
+                                <h6>Cast</h6>
+                                <?php
+                                    echo '<ul class="d-flex flex-column mt-5">';
+                                        foreach($clicked_movie->get_cast() as $character)
+                                            echo 
+                                                '<li>
+                                                    <div class="cast_area text-secondary mt-2">
+                                                        <span>' 
+                                                            . $character->get_data(0) . " " . $character->get_data(1) . 
+                                                        '</span>
+                                                        <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
+                                                            <span>' . $character->get_data(0) . " " . $character->get_data(1) . '</span>
+                                                            <span>' . $gender_str($character->get_data(2)) . '</span>
+                                                            <span>' . strtoupper($character->get_key(4)) . " : " . $character->get_data(4) . '</span>
+                                                            <span>' . strtoupper($character->get_key(3)) . " : " . $character->get_data(3) . '</span>
+                                                        </div>
+                                                    </div>
+                                                </li>';
+                                    echo '</ul>';
+                                ?>
+                            </div>
+                        </div>
+                    </div>
             <?php
                 endforeach;
             ?>
         </div>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas_cast" aria-labelledby="offcanvas_castLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvas_castLabel">
-                    <?php 
-                        $clicked_movie = $movies[$index];
-                        echo $clicked_movie->get_title();
-                    ?>
-                </h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div>
-                    <h6>Cast</h6>
-                    <?php
-                        echo '<ul class="d-flex flex-column mt-5">';
-                                foreach($clicked_movie->get_cast() as $character)
-                                    echo 
-                                        '<li>
-                                            <div class="cast_area text-secondary mt-2">
-                                                <span>' 
-                                                    . $character->get_data(0) . " " . $character->get_data(1) . 
-                                                '</span>
-                                                <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
-                                                    <span>' . $character->get_data(0) . " " . $character->get_data(1) . '</span>
-                                                    <span>' . $gender_str($character->get_data(2)) . '</span>
-                                                    <span>' . strtoupper($character->get_key(4)) . " : " . $character->get_data(4) . '</span>
-                                                    <span>' . strtoupper($character->get_key(3)) . " : " . $character->get_data(3) . '</span>
-                                                </div>
-                                            </div>
-                                        </li>';
-                        echo '</ul>';
-                    ?>
-                </div>
-            </div>
-        </div>
     </main>
+    <!-- CDN Javascript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
