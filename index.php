@@ -1,4 +1,33 @@
 <?php
+    class Movie_Person
+    {
+        public $person_data = array();
+
+        function __construct(array $_person_data)
+        {
+            $this->person_data = $_person_data;
+        }
+
+        function set_data($_index, $_value)
+        {
+            $keys = array_keys($this->person_data);
+            $this->person_data[$keys[$_index]] = $_value;
+            var_dump($keys);
+        }
+    };
+
+    $person_data = ["name" => "Leonardo Wilhelm", "surname" => "DiCaprio", "is_male" => true, "nationality" => "U.S.A.", "role" => "Main Character"];
+    $person1 = new Movie_Person($person_data);
+
+    var_dump($person1);
+    echo "<br><br>";
+    $person1->set_data(0,"Leonardo e basta");
+    var_dump($person1);
+    echo "<br><br>";
+    $person1->set_data(3,"Italian blood");
+    var_dump($person1);
+    echo "<br><br>";
+
     class Movie 
     {
         public $title;
@@ -59,19 +88,11 @@
         new Movie("The King's Speech", "Historical Drama", "Tom Hooper"),
         new Movie("Body of lies", "Spy Action Thriller", "Ridley Scott")
     ];
-    // $movie1 = new Movie("The exorcist", "Horror", "William Friedkin");
     $movies[0]->set_poster_url("https://m.media-amazon.com/images/I/71KnXY8ZfiL._AC_UF894,1000_QL80_.jpg");
-    // $movie2 = new Movie("The King's Speech", "Historical Drama", "Tom Hooper");
     $movies[1]->set_poster_url("https://m.media-amazon.com/images/I/51XZNIFP+1L._AC_UF894,1000_QL80_.jpg");
-    // $movie3 = new Movie("Body of lies", "Spy Action Thriller", "Ridley Scott");
     $movies[2]->set_poster_url("https://m.media-amazon.com/images/M/MV5BMTgzOTY3MTM0OV5BMl5BanBnXkFtZTcwNjc5MTI5MQ@@._V1_.jpg");
 
-    // var_dump($movie1);
-    // echo "<br><br>";
-    // var_dump($movie2);
-    // echo "<br><br>";
-    // var_dump($movie3);
-    // echo "<br><br>";
+    var_dump($movies[2]);
 ?>
 
 <!DOCTYPE html>
