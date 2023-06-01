@@ -262,13 +262,22 @@
             flex-direction: column;
             gap: 5px;
             align-items: center;
+            top: 0;
+            left: 0;
             width: 100%;
+        }
+
+        .cast_area > div
+        {
+            left: 10%;
+            width: 90%;
         }
 
         .director_area:hover > div,
         .cast_area:hover > div
         {
             display: flex;
+            z-index: 999;
         }
     </style>
 </head>
@@ -290,7 +299,7 @@
                              onclick="<?php $clicked_index = $index; ?>">Cast</a>
                             <div class="director_area text-secondary mt-2">
                                 <span><?php echo $movie->get_director()->get_data(0) . " " . $movie->get_director()->get_data(1) ?></span>
-                                <div class="position-absolute top-0 start-0 border border-1 border-dark rounded-3 bg-light">
+                                <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
                                     <span><?php echo $movie->get_director()->get_data(0) . " " . $movie->get_director()->get_data(1) ?></span>
                                     <span><?php echo $gender_str($movie->get_director()->get_data(2)) ?></span>
                                     <span><?php echo strtoupper($movie->get_director()->get_key(4)) . " : " . $movie->get_director()->get_data(4) ?></span>
@@ -325,7 +334,7 @@
                                                 <span>' 
                                                     . $character->get_data(0) . " " . $character->get_data(1) . 
                                                 '</span>
-                                                <div class="position-absolute top-0 start-0 border border-1 border-dark rounded-3 bg-light">
+                                                <div class="position-absolute border border-1 border-dark rounded-3 bg-light">
                                                     <span>' . $character->get_data(0) . " " . $character->get_data(1) . '</span>
                                                     <span>' . $gender_str($character->get_data(2)) . '</span>
                                                     <span>' . strtoupper($character->get_key(4)) . " : " . $character->get_data(4) . '</span>
