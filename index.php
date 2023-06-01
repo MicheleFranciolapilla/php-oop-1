@@ -206,6 +206,12 @@
                                         "nationality" => "Guatemalan"
                                     ]),
                                 ]);
+//    var_dump($cast_collection[0]);
+//    echo "<br><br>";
+//    var_dump($cast_collection[1]);
+//    echo "<br><br>";   
+//    var_dump($cast_collection[2]);
+//    echo "<br><br>";
     $movies = [
         new Movie("The exorcist", "Horror", new Movie_Person($directors_data[0]), $cast_collection[0]),
         new Movie("The King's Speech", "Historical Drama", new Movie_Person($directors_data[1]), $cast_collection[1]),
@@ -217,7 +223,8 @@
 
     // var_dump($movies[2]);
 
-    $clicked_cast = null;
+    $clicked_index = 0;
+    $clicked_movie = null;
 ?>
 
 <!DOCTYPE html>
@@ -241,13 +248,15 @@
             display: block;
         }
 
-        .director_area
+        .director_area,
+        .cast_area
         {
             position: relative;
             cursor: pointer;
         }
 
-        .director_area > div
+        .director_area > div,
+        .cast_area > div
         {
             display: none;
             flex-direction: column;
@@ -256,7 +265,8 @@
             width: 100%;
         }
 
-        .director_area:hover > div
+        .director_area:hover > div,
+        .cast_area:hover > div
         {
             display: flex;
         }
@@ -269,7 +279,7 @@
     <main>
         <div class="row justify-content-between w-75 p-1 mx-auto border border-3 rounded-5 bg-info">
             <?php 
-                foreach($movies as $movie):
+                foreach($movies as $index => $movie):
             ?>
                     <div class="col-3 py-1 card">
                         <img src="<?php echo $movie->get_poster_url() ?>" class="card-img-top" alt="...">
@@ -277,7 +287,7 @@
                             <h5 class="card-title"><?php echo $movie->get_title() ?></h5>
                             <span class="card-text py-2"><?php echo $movie->get_genre() ?></span>
                             <a class="btn btn-primary d-block" data-bs-toggle="offcanvas" href="#offcanvas_cast" role="button" aria-controls="offcanvas_cast" 
-                             onclick="<?php $clicked_cast = $movie->get_cast() ?>">Cast</a>
+                             onclick="<?php $clicked_index = $index; ?>">Cast</a>
                             <div class="director_area text-secondary mt-2">
                                 <span><?php echo $movie->get_director()->get_data(0) . " " . $movie->get_director()->get_data(1) ?></span>
                                 <div class="position-absolute top-0 start-0 border border-1 border-dark rounded-3 bg-light">
@@ -292,7 +302,41 @@
             <?php
                 endforeach;
             ?>
-
+        </div>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas_cast" aria-labelledby="offcanvas_castLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvas_castLabel">
+                    <?php 
+                        $clicked_movie = $movies[$index];
+                        echo $clicked_movie->get_title();
+                    ?>
+                </h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    <h6>Cast</h6>
+                    <?php
+                        echo '<ul class="d-flex flex-column mt-5">';
+                                foreach($clicked_movie->get_cast() as $character)
+                                    echo 
+                                        '<li>
+                                            <div class="cast_area text-secondary mt-2">
+                                                <span>' 
+                                                    . $character->get_data(0) . " " . $character->get_data(1) . 
+                                                '</span>
+                                                <div class="position-absolute top-0 start-0 border border-1 border-dark rounded-3 bg-light">
+                                                    <span>' . $character->get_data(0) . " " . $character->get_data(1) . '</span>
+                                                    <span>' . $gender_str($character->get_data(2)) . '</span>
+                                                    <span>' . strtoupper($character->get_key(4)) . " : " . $character->get_data(4) . '</span>
+                                                    <span>' . strtoupper($character->get_key(3)) . " : " . $character->get_data(3) . '</span>
+                                                </div>
+                                            </div>
+                                        </li>';
+                        echo '</ul>';
+                    ?>
+                </div>
+            </div>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
